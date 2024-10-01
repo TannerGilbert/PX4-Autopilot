@@ -5,16 +5,7 @@
 
 name: Setup Tools Test (Ubuntu)
 
-on:
-  push:
-    branches:
-      - 'main'
-      - 'stable'
-      - 'beta'
-      - 'release/*'
-  pull_request:
-    branches:
-      - '*'
+on: push
 
 jobs:
   ubuntu-run:
@@ -33,8 +24,19 @@ jobs:
       # - name: ownership workaround
       #   run: git config --system --add safe.directory '*'
 
+      - name: Install pre-requisites
+        run: |
+            git clone https://github.com/zeromq/cppzmq.git
+            cd cppzmq
+            mkdir build
+            cd build
+            cmake ..
+            sudo make install
+            cd ../..
+
       - name: Install Dependencies
         run: |
+            sudo apt-get install -y libunwind-dev
             ./Tools/setup/ubuntu.sh
 
       - name: Make Default Build
