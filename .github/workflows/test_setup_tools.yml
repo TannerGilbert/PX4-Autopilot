@@ -26,6 +26,11 @@ jobs:
 
       - name: Install pre-requisites
         run: |
+            # Install ZeroMQ library
+            sudo apt-get update -y
+            sudo apt-get install -y libzmq3-dev
+
+            # Clone and install cppzmq
             git clone https://github.com/zeromq/cppzmq.git
             cd cppzmq
             mkdir build
