@@ -22,8 +22,9 @@ jobs:
       fail-fast: false
       matrix:
         version: [22, 24]
-    # runs-on: ubuntu-latest
-    runs-on: [runs-on,runner=8cpu-linux-x64,"image=ubuntu${{ matrix.version }}-full-x64","run-id=${{ github.run_id }}"]
+        os: [ubuntu-22.04, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    #runs-on: [runs-on,runner=8cpu-linux-x64,"image=ubuntu${{ matrix.version }}-full-x64","run-id=${{ github.run_id }}"]
     steps:
       - uses: actions/checkout@v4
         with:
